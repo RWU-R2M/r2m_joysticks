@@ -1,0 +1,32 @@
+services:
+  joy2twist:
+    image: ghcr.io/rwu-r2m/r2m_joy2twist:jazzy
+    container_name: joy2twist
+    network_mode: host
+    privileged: true
+    stdin_open: true
+    tty: true
+    ipc: host
+    devices:
+      - /dev/input
+    environment:
+      - DISPLAY=${DISPLAY}
+      - ROS_DOMAIN_ID=${ROS_DOMAIN_ID}
+      - ROS_LOCALHOST_ONLY=0
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,video,utility,graphics
+      - QT_X11_NO_MITSHM=1
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /dev/shm:/dev/shm
+      - ${HOME}/.Xauthority:/root/.Xauthority
+      - ./joy2twist.yaml:/joy2twist.yaml
+    command:
+      - bash
+      - -c
+      - |
+        source /opt/ros/jazzy/setup.bash
+        source /ros_entrypoint.sh
+        source /ros2_ws/install/setup.bash
+        ros2 launch joy2twist gamepad_controller.launch.py joy2twist_params_file:=/joy2twist.yaml

@@ -1,0 +1,6 @@
+services:
+  r2m_joy2twist:
+    image: ghcr.io/rwu-r2m/r2m_joy2twist:jazzy
+    build:
+      context: .
+      dockerfile: Dockerfile
