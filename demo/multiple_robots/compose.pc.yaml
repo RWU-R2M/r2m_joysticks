@@ -1,6 +1,6 @@
 services:
   joy2twist:
-    image: ghcr.io/rwu-r2m/r2m_joy2twist:jazzy
+    image: ghcr.io/rwu-r2m/r2m_joy2sticks:latest
     container_name: joy2twist
     network_mode: host
     privileged: true
